@@ -38,7 +38,8 @@ create table public.transactions (
   date          timestamptz not null,
   is_recurring  boolean not null default false,
   recurring_id  text,
-  split_group_id text
+  split_group_id text,
+  external_ref  text          -- id from an external source (e.g. bank slip ref); unique per user
 );
 
 -- ── recurring ────────────────────────────────────────────────────────────────
@@ -91,6 +92,8 @@ create policy "own user_settings" on public.user_settings for all using (auth.ui
 -- ── Indexes for common query patterns ───────────────────────────────────────
 create index on public.transactions (user_id, date desc);
 create index on public.transactions (user_id, account_id);
+create unique index transactions_user_external_ref_key
+  on public.transactions (user_id, external_ref) where external_ref is not null;
 create index on public.recurring    (user_id, is_active, next_due_date);
 
 -- ── presets (quick-entry templates) ─────────────────────────────────────────

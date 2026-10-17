@@ -632,7 +632,11 @@ export default function Settings() {
                     <li><span className="font-mono text-gray-700 dark:text-gray-300">toAccount</span> — เฉพาะ transfer</li>
                     <li><span className="font-mono text-gray-700 dark:text-gray-300">category</span> — ไม่บังคับ (income/expense)</li>
                     <li><span className="font-mono text-gray-700 dark:text-gray-300">note</span> — ไม่บังคับ</li>
+                    <li><span className="font-mono text-gray-700 dark:text-gray-300">date</span> — ไม่บังคับ (ISO 8601 ปี ค.ศ. เช่น 2026-10-17T14:30 ไม่ใส่ timezone = เวลาไทย, ไม่ส่ง = ตอนนี้)</li>
+                    <li><span className="font-mono text-gray-700 dark:text-gray-300">ref</span> — ไม่บังคับ (รหัสอ้างอิง เช่น เลขที่รายการในสลิป ส่ง ref ซ้ำจะได้ 409 ไม่บันทึกซ้ำ)</li>
+                    <li><span className="font-mono text-gray-700 dark:text-gray-300">dryRun</span> — ไม่บังคับ (true = ตรวจข้อมูลอย่างเดียว ไม่บันทึก)</li>
                   </ul>
+                  <p className="mt-1.5 text-gray-500">ส่ง <span className="font-mono text-gray-700 dark:text-gray-300">{"{\"action\":\"meta\"}"}</span> เพื่อดึงรายชื่อบัญชีและหมวดหมู่</p>
                 </div>
 
                 {/* Examples — all 3 actions */}
@@ -641,7 +645,7 @@ export default function Settings() {
                   <pre className="text-[10px] leading-relaxed bg-gray-900 text-gray-100 rounded-xl p-3 overflow-x-auto">{`curl -X POST '${txEndpoint()}' \\
   -H 'Authorization: Bearer <your_key>' \\
   -H 'Content-Type: application/json' \\
-  -d '{"action":"expense","amount":120,"account":"${egAcc1}","category":"${egExpenseCat}","note":"ข้าวเที่ยง"}'`}</pre>
+  -d '{"action":"expense","amount":120,"account":"${egAcc1}","category":"${egExpenseCat}","note":"ข้าวเที่ยง","date":"2026-10-17T12:15","ref":"slip-0001"}'`}</pre>
                 </div>
                 <div>
                   <p className="font-semibold text-gray-500 mb-1">ตัวอย่าง — รับ (income)</p>
